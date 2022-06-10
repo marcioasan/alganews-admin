@@ -1,5 +1,5 @@
 //13.10. Instalando a biblioteca de gráficos, 13.11. Transformando os dados do gráfico
-import { Line } from '@ant-design/charts';
+import { Area, AreaConfig } from '@ant-design/charts';
 
 import { MetricService } from 'marcioasan-sdk';
 import { useEffect } from 'react';
@@ -19,16 +19,18 @@ export default function CompanyMetrics() {
     MetricService.getMonthlyRevenuesExpenses().then(transformDataIntoAntdChart).then(setData);
   }, []);
 
-  const config = {
+  const config: AreaConfig = {
     data,
     height: 400,
+    color: ['#274060', '#0099ff'],
+    areaStyle: { fillOpacity: 1 },
     xField: 'yearMonth',
     yField: 'value',
     seriesField: 'category',
     point: {
       size: 5,
-      shape: 'diamond',
+      shape: 'circle',
     },
   };
-  return <Line {...config} />;
+  return <Area {...config} />;
 }
