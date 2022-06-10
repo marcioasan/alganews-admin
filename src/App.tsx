@@ -1,6 +1,6 @@
 //13.10. Instalando a biblioteca de gráficos
 import { Col, Row, Typography } from 'antd';
-import CompanyMetrics from './app/layouts/Default/features/CompanyMetrics';
+import CompanyMetrics from './app/features/CompanyMetrics';
 
 const { Title, Paragraph } = Typography;
 
