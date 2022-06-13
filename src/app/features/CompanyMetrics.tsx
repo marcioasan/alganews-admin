@@ -1,6 +1,8 @@
 //13.10. Instalando a biblioteca de gráficos, 13.11. Transformando os dados do gráfico
 import { Area, AreaConfig } from '@ant-design/charts';
 import { format } from 'date-fns';
+import parseISO from 'date-fns/parseISO';
+import ptBR from 'date-fns/esm/locale/pt-BR';
 //import ptBR from 'date-fns/esm/locale/pt-BR/index.js';
 
 import { MetricService } from 'marcioasan-sdk';
@@ -34,6 +36,23 @@ export default function CompanyMetrics() {
         formatter(legend) {
           return legend === 'totalRevenues' ? 'Receitas' : 'Despesas';
         },
+      },
+    },
+    tooltip: {
+      title(title) {
+        return format(parseISO(title), 'MMMM yyyy', {
+          locale: ptBR,
+        });
+      },
+      formatter(data) {
+        return {
+          name: data.category === 'totalRevenues' ? 'Receitas' : 'Despesas',
+          value: (data.value as number).toLocaleString('pt-BR', {
+            currency: 'BRL',
+            style: 'currency',
+            maximumFractionDigits: 2,
+          }),
+        };
       },
     },
     xAxis: {
