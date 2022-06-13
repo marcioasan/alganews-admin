@@ -3,15 +3,10 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'antd/dist/antd.css';
-import { Layout, Menu, Breadcrumb } from 'antd';
-import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
 import './index.css';
 import { Provider } from 'react-redux';
 import { store } from './core/store';
 import DefaultLayout from './app/layouts/Default/Default.layout';
-
-const { SubMenu } = Menu;
-const { Header, Content, Sider } = Layout;
 
 ReactDOM.render(
   <React.StrictMode>

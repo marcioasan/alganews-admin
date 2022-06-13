@@ -1,5 +1,7 @@
 //13.10. Instalando a biblioteca de gráficos, 13.11. Transformando os dados do gráfico
 import { Area, AreaConfig } from '@ant-design/charts';
+import { format } from 'date-fns';
+//import ptBR from 'date-fns/esm/locale/pt-BR/index.js';
 
 import { MetricService } from 'marcioasan-sdk';
 import { useEffect } from 'react';
@@ -31,6 +33,14 @@ export default function CompanyMetrics() {
       itemName: {
         formatter(legend) {
           return legend === 'totalRevenues' ? 'Receitas' : 'Despesas';
+        },
+      },
+    },
+    xAxis: {
+      label: {
+        formatter(item) {
+          return format(new Date(item), 'MM/yyyy');
+          //return format(new Date(item), 'MMMM/yyyy', { locale: ptBR }); //13.14. Configurando a label do eixo horizontal
         },
       },
     },
