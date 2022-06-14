@@ -8,7 +8,7 @@ const { Title, Paragraph } = Typography;
 function App() {
   return (
     /* 13.19. Espaçamento entre Rows (componente Space */
-    <Space direction='vertical' size={'middle'}>
+    <Space direction='vertical' size={'middle'} style={{ maxWidth: '100%' }}>
       <Row>
         <Col span={24}>
           <Title level={2}>Olá, José Sousa</Title>

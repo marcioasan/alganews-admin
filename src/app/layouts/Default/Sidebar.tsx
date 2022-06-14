@@ -7,7 +7,8 @@ const { SubMenu } = Menu;
 
 export default function DefaultLayoutSidebar() {
   return (
-    <Sider width={200} className='site-layout-background'>
+    /* 13.20. Responsividade no Layout - 4' */
+    <Sider width={200} className='site-layout-background' breakpoint='lg' collapsedWidth='0'>
       <Menu
         mode='inline'
         defaultSelectedKeys={['1']}
