@@ -1,14 +1,13 @@
-//13.10. Instalando a biblioteca de gráficos
+//13.23. Criando a primeira rota
 import { Col, Divider, Row, Space, Typography } from 'antd';
-import CompanyMetrics from './app/features/CompanyMetrics';
-import LatestPosts from './app/features/LatestPosts';
+import CompanyMetrics from '../features/CompanyMetrics';
+import LatestPosts from '../features/LatestPosts';
 
 const { Title, Paragraph } = Typography;
 
-function App() {
+function HomeView() {
   return (
-    /* 13.19. Espaçamento entre Rows (componente Space */
-    <Space direction='vertical' size={'middle'} style={{ maxWidth: '100%' }}>
+    <Space direction='vertical' size={'small'} style={{ maxWidth: '100%' }}>
       <Row>
         <Col span={24}>
           <Title level={2}>Olá, José Sousa</Title>
@@ -31,4 +30,4 @@ function App() {
   );
 }
 
-export default App;
+export default HomeView;
