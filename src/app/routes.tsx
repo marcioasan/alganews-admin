@@ -14,7 +14,7 @@ export default function Routes() {
     /* 13.25. Acessando as rotas pelo menu lateral - 2'10" */
     <Switch>
       <Route path={'/'} exact component={HomeView} />
-      <Route path={'/usuarios/criacao'} exact component={UserCreateView} />
+      <Route path={'/usuarios/cadastro'} exact component={UserCreateView} />
       <Route path={'/usuarios'} exact component={UserListView} />
       <Route path={'/pagamentos'} exact component={PaymentListView} />
       <Route path={'/pagamentos/cadastro'} exact component={PaymentCreateView} />
