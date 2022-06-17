@@ -10,27 +10,31 @@ import {
   FallOutlined,
   RiseOutlined,
 } from '@ant-design/icons';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 
 const { Sider } = Layout;
 const { SubMenu } = Menu;
 
 export default function DefaultLayoutSidebar() {
   const history = useHistory();
+
+  //13.27. Localizando o sidebar ao carregar a aplicação - 1'50"
+  const location = useLocation();
+
   return (
     /* 13.20. Responsividade no Layout - 4' */
     <Sider width={200} className='site-layout-background' breakpoint='lg' collapsedWidth='0'>
       <Menu
         mode='inline'
-        defaultSelectedKeys={['1']}
-        defaultOpenKeys={['sub1']}
+        defaultSelectedKeys={[location.pathname]}
+        defaultOpenKeys={[location.pathname.split('/')[1]]}
         style={{ height: '100%', borderRight: 0 }}
       >
-        <Menu.Item key={'0'} icon={<HomeOutlined />}>
+        <Menu.Item key={'/'} icon={<HomeOutlined />}>
           {/* 13.26. "Abrir em uma nova guia" no menu */}
           <Link to={'/'}>Home</Link>
         </Menu.Item>
-        <SubMenu key='sub1' icon={<UserOutlined />} title='Usuários'>
+        <SubMenu key='usuarios' icon={<UserOutlined />} title='Usuários'>
           <Menu.Item
             key='/usuarios'
             onClick={() => history.push('/usuarios')}
@@ -39,14 +43,14 @@ export default function DefaultLayoutSidebar() {
             <Link to={'/usuarios'}>Consulta</Link>
           </Menu.Item>
           <Menu.Item
-            key='/usuarios/criacao'
-            onClick={() => history.push('/usuarios/criacao')}
+            key='/usuarios/cadastro'
+            onClick={() => history.push('/usuarios/cadastro')}
             icon={<PlusCircleOutlined />}
           >
             <Link to={'/usuarios/cadastro'}>Cadastro</Link>
           </Menu.Item>
         </SubMenu>
-        <SubMenu key='sub2' icon={<LaptopOutlined />} title='Pagamentos'>
+        <SubMenu key='pagamentos' icon={<LaptopOutlined />} title='Pagamentos'>
           <Menu.Item
             key='/pagamentos'
             onClick={() => history.push('/pagamentos')}
@@ -62,7 +66,7 @@ export default function DefaultLayoutSidebar() {
             <Link to={'/pagamentos/cadastro'}>Cadastro</Link>
           </Menu.Item>
         </SubMenu>
-        <SubMenu key='sub3' icon={<DiffOutlined />} title='Fluxo de Caixa'>
+        <SubMenu key='fluxo-de-caixa' icon={<DiffOutlined />} title='Fluxo de Caixa'>
           <Menu.Item
             key='/fluxo-de-caixa/despesas'
             onClick={() => history.push('/fluxo-de-caixa/despesas')}
