@@ -7,13 +7,17 @@ import { Provider } from 'react-redux';
 import { store } from './core/store';
 import DefaultLayout from './app/layouts/Default/Default.layout';
 import Routes from './app/routes';
+import { BrowserRouter } from 'react-router-dom';
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <DefaultLayout>
-        <Routes /> {/* 13.23. Criando a primeira rota - 2'50" */}
-      </DefaultLayout>
+      {/* 13.25. Acessando as rotas pelo menu lateral - 2' */}
+      <BrowserRouter>
+        <DefaultLayout>
+          <Routes /> {/* 13.23. Criando a primeira rota - 2'50" */}
+        </DefaultLayout>
+      </BrowserRouter>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')
