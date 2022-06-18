@@ -9,7 +9,11 @@ export default function DefaultLayoutHeader() {
   return (
     /* 13.28. Adicionando a logo no header */
     <Header className='header'>
-      <Row justify='space-between' style={{ height: '100%' }} align='middle'>
+      <Row
+        justify='space-between'
+        style={{ height: '100%', maxWidth: 1190, margin: '0 auto' }}
+        align='middle'
+      >
         <img src={logo} alt={'AlgaNews Admin'} />
         <Avatar />
       </Row>
