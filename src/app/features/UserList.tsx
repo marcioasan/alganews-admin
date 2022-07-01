@@ -21,6 +21,7 @@ export default function UserList() {
           {
             dataIndex: 'name',
             title: 'Nome',
+            width: 160,
             //14.3. Recuperando dados além da coluna
             render(name: string, row) {
               return (
@@ -37,6 +38,7 @@ export default function UserList() {
             dataIndex: 'email',
             title: 'Email',
             ellipsis: true,
+            width: 240,
           },
           {
             dataIndex: 'role',
