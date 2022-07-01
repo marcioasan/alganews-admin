@@ -1,5 +1,5 @@
 //14.1. Tabela de usuários
-import { Button, Switch, Table, Tag } from 'antd';
+import { Avatar, Button, Space, Switch, Table, Tag, Typography } from 'antd';
 import { format } from 'date-fns';
 import { User } from 'marcioasan-sdk';
 import { useEffect } from 'react';
@@ -21,6 +21,15 @@ export default function UserList() {
           {
             dataIndex: 'name',
             title: 'Nome',
+            //14.3. Recuperando dados além da coluna
+            render(name: string, row) {
+              return (
+                <Space>
+                  <Avatar size={'small'} src={row.avatarUrls.small} />
+                  <Typography.Text>{name}</Typography.Text>
+                </Space>
+              );
+            },
           },
           {
             dataIndex: 'email',
