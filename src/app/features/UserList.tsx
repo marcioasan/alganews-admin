@@ -1,8 +1,10 @@
 //14.1. Tabela de usuários
-import { Table } from 'antd';
+import { Button, Switch, Table, Tag } from 'antd';
+import { format } from 'date-fns';
 import { User } from 'marcioasan-sdk';
 import { useEffect } from 'react';
 import useUsers from '../../core/hooks/useUsers';
+import { EyeOutlined, EditOutlined } from '@ant-design/icons';
 
 export default function UserList() {
   const { users, fetchUsers } = useUsers();
@@ -27,18 +29,44 @@ export default function UserList() {
           {
             dataIndex: 'role',
             title: 'Perfil',
+            align: 'center',
+            render(role) {
+              return (
+                //14.2. Customizando renderização das colunas da tabela
+                <Tag color={role === 'MANAGER' ? 'red' : 'blue'}>
+                  {role === 'EDITOR' ? 'Editor' : role === 'MANAGER' ? 'Gerente' : 'Assistente'}
+                </Tag>
+              );
+            },
           },
           {
             dataIndex: 'createdAt',
             title: 'Criação',
+            align: 'center',
+            render(createdAt: string) {
+              return format(new Date(createdAt), 'dd/MM/yyy');
+            },
           },
           {
             dataIndex: 'active',
             title: 'Ativo',
+            align: 'center',
+            render(active: boolean) {
+              return <Switch defaultChecked={active} />;
+            },
           },
           {
             dataIndex: 'id',
             title: 'Ações',
+            align: 'center',
+            render() {
+              return (
+                <>
+                  <Button size='small' icon={<EyeOutlined />} />
+                  <Button size='small' icon={<EditOutlined />} />
+                </>
+              );
+            },
           },
         ]}
       />
