@@ -1,16 +1,24 @@
 //14.1. Tabela de usuários
-import { User, UserService } from 'marcioasan-sdk';
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../store';
+import * as UserActions from '../store/User.reducer';
 
 export default function useUsers() {
-  const [users, setUsers] = useState<User.Summary[]>([]);
+  //const [users, setUsers] = useState<User.Summary[]>([]);
+  //14.6. Usuários no Redux - 7'20"
+  const dispatch = useDispatch();
+
+  const users = useSelector((state: RootState) => state.user.list);
+  const fetching = useSelector((state: RootState) => state.user.fetching);
 
   const fetchUsers = useCallback(() => {
-    UserService.getAllUsers().then(setUsers);
-  }, []);
+    dispatch(UserActions.getAllUsers());
+  }, [dispatch]);
 
   return {
     fetchUsers,
     users,
+    fetching,
   };
 }
