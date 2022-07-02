@@ -7,7 +7,7 @@ import useUsers from '../../core/hooks/useUsers';
 import { EyeOutlined, EditOutlined } from '@ant-design/icons';
 
 export default function UserList() {
-  const { users, fetchUsers } = useUsers();
+  const { users, fetchUsers, toggleUserStatus } = useUsers();
 
   useEffect(() => {
     fetchUsers();
@@ -65,8 +65,15 @@ export default function UserList() {
             dataIndex: 'active',
             title: 'Ativo',
             align: 'center',
-            render(active: boolean) {
-              return <Switch defaultChecked={active} />;
+            render(active: boolean, user) {
+              return (
+                <Switch
+                  onChange={() => {
+                    toggleUserStatus(user);
+                  }}
+                  defaultChecked={active}
+                />
+              );
             },
           },
           {

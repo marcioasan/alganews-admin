@@ -1,4 +1,5 @@
 //14.1. Tabela de usuários
+import { User } from 'marcioasan-sdk';
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store';
@@ -16,9 +17,18 @@ export default function useUsers() {
     dispatch(UserActions.getAllUsers());
   }, [dispatch]);
 
+  //14.7. Alterando o status do usuário no Redux - 3'
+  const toggleUserStatus = useCallback(
+    (user: User.Datailed | User.Summary) => {
+      dispatch(UserActions.toggleUserStatus(user));
+    },
+    [dispatch]
+  );
+
   return {
     fetchUsers,
     users,
     fetching,
+    toggleUserStatus,
   };
 }
