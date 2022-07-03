@@ -22,13 +22,16 @@ export const getAllUsers = createAsyncThunk('user/getAllUsers', async () =>
   UserService.getAllUsers()
 );
 
-//14.7. Alterando o status do usuário no Redux
+//14.7. Alterando o status do usuário no Redux, 14.9. Remapeando dados locais ao disparar uma action 4'
 export const toggleUserStatus = createAsyncThunk(
   'user/toggleUserStatus',
-  async (user: User.Summary | User.Datailed) =>
+  async (user: User.Summary | User.Datailed) => {
     user.active
-      ? UserService.deactivateExistingUser(user.id)
-      : UserService.activateExistingUser(user.id)
+      ? await UserService.deactivateExistingUser(user.id)
+      : await UserService.activateExistingUser(user.id);
+
+    return user;
+  }
 );
 
 export default createReducer(initialState, (builder) => {
@@ -40,6 +43,15 @@ export default createReducer(initialState, (builder) => {
     .addCase(getAllUsers.fulfilled, (state, action) => {
       state.list = action.payload;
     })
+    //14.9. Remapeando dados locais ao disparar uma action - *** na aula 14.9 mostra configuração do docker-compose.yml na propriedade ALGANEWS_SECURITY_DEFAULT_USER_ID_IF_DISABLED
+    /*
+    .addCase(toggleUserStatus.fulfilled, (state, action) => {
+      state.list = state.list.map((user) => {
+        if (user.id === action.payload.id) return { ...user, active: !user.active };
+        return user;
+      });
+    })
+    */
     .addMatcher(success, (state) => {
       state.fetching = false;
     })
