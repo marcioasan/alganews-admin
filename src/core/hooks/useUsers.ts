@@ -17,10 +17,11 @@ export default function useUsers() {
     dispatch(UserActions.getAllUsers());
   }, [dispatch]);
 
-  //14.7. Alterando o status do usuário no Redux - 3', 14.9. Remapeando dados locais ao disparar uma action - 7'30"
+  //14.7. Alterando o status do usuário no Redux - 3', 14.9. Remapeando dados locais ao disparar uma action - 7'30", 14.10. O dispatch retorna uma Promise - 2'40"
   const toggleUserStatus = useCallback(
-    (user: User.Datailed | User.Summary) => {
-      dispatch(UserActions.toggleUserStatus(user));
+    async (user: User.Datailed | User.Summary) => {
+      await dispatch(UserActions.toggleUserStatus(user));
+      dispatch(UserActions.getAllUsers());
     },
     [dispatch]
   );
