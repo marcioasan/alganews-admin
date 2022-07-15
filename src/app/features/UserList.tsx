@@ -83,6 +83,8 @@ export default function UserList() {
       <Table<User.Summary>
         loading={fetching} //14.12. Controlando loading da tabela
         dataSource={users}
+        //pagination={{ pageSize: 2 }} //14.13. Paginação local
+        pagination={false}
         columns={[
           {
             dataIndex: 'name',
