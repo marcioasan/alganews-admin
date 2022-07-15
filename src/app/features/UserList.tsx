@@ -8,7 +8,7 @@ import { EyeOutlined, EditOutlined, SearchOutlined } from '@ant-design/icons';
 import { ColumnProps } from 'antd/lib/table';
 
 export default function UserList() {
-  const { users, fetchUsers, toggleUserStatus } = useUsers();
+  const { users, fetchUsers, toggleUserStatus, fetching } = useUsers();
 
   useEffect(() => {
     fetchUsers();
@@ -81,6 +81,7 @@ export default function UserList() {
   return (
     <>
       <Table<User.Summary>
+        loading={fetching} //14.12. Controlando loading da tabela
         dataSource={users}
         columns={[
           {
