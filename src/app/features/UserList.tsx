@@ -87,21 +87,20 @@ export default function UserList() {
         pagination={false}
         columns={[
           {
+            dataIndex: 'avatarUrls',
+            title: '',
+            width: 48,
+            fixed: 'left', //14.14. Tabela responsiva com Scroll - 4', 6'27", 7'
+            render(avatarUrls: User.Summary['avatarUrls']) {
+              return <Avatar size={'small'} src={avatarUrls.small} />;
+            },
+          },
+          {
             dataIndex: 'name',
             title: 'Nome',
-            width: 160,
             ...getColumnSearchProps('name', 'Nome'),
-            //14.3. Recuperando dados além da coluna
-            render(name: string, row) {
-              return (
-                <Space>
-                  <Avatar size={'small'} src={row.avatarUrls.small} />
-                  <Typography.Text ellipsis style={{ maxWidth: 120 }}>
-                    {name}
-                  </Typography.Text>
-                </Space>
-              );
-            },
+            width: 160,
+            ellipsis: true,
           },
           {
             dataIndex: 'email',
@@ -114,6 +113,7 @@ export default function UserList() {
             dataIndex: 'role',
             title: 'Perfil',
             align: 'center',
+            width: 100,
             render(role) {
               return (
                 //14.2. Customizando renderização das colunas da tabela
@@ -127,6 +127,7 @@ export default function UserList() {
             dataIndex: 'createdAt',
             title: 'Criação',
             align: 'center',
+            width: 120,
             render(createdAt: string) {
               return format(new Date(createdAt), 'dd/MM/yyy');
             },
@@ -135,6 +136,7 @@ export default function UserList() {
             dataIndex: 'active',
             title: 'Ativo',
             align: 'center',
+            width: 100,
             render(active: boolean, user) {
               return (
                 <Switch
@@ -150,6 +152,7 @@ export default function UserList() {
             dataIndex: 'id',
             title: 'Ações',
             align: 'center',
+            width: 100,
             render() {
               return (
                 <>
