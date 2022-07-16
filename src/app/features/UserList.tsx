@@ -91,6 +91,7 @@ export default function UserList() {
             title: '',
             width: 48,
             fixed: 'left', //14.14. Tabela responsiva com Scroll - 4', 6'27", 7'
+            responsive: ['xs'], //14.15. Propriedade responsive - 4'30"
             render(avatarUrls: User.Summary['avatarUrls']) {
               return <Avatar size={'small'} src={avatarUrls.small} />;
             },
@@ -105,6 +106,7 @@ export default function UserList() {
           {
             dataIndex: 'email',
             title: 'Email',
+            responsive: ['md'], //14.15. Propriedade responsive - 1'30"
             ellipsis: true,
             width: 240,
             ...getColumnSearchProps('email', 'Email'),
@@ -126,6 +128,7 @@ export default function UserList() {
           {
             dataIndex: 'createdAt',
             title: 'Criação',
+            responsive: ['lg'], //14.15. Propriedade responsive - 1'30"
             align: 'center',
             width: 120,
             render(createdAt: string) {
