@@ -1,5 +1,16 @@
 //14.1. Tabela de usuários
-import { Avatar, Button, Card, Input, Space, Switch, Table, Tag, Typography } from 'antd';
+import {
+  Avatar,
+  Button,
+  Card,
+  Descriptions,
+  Input,
+  Space,
+  Switch,
+  Table,
+  Tag,
+  Typography,
+} from 'antd';
 import { format } from 'date-fns';
 import { User } from 'marcioasan-sdk';
 import { useEffect } from 'react';
@@ -87,11 +98,39 @@ export default function UserList() {
         pagination={false}
         columns={[
           {
+            title: 'Usuários', //14.16. Renderizando cards na tabela (mobile)
+            responsive: ['xs'],
+            render(user: User.Summary) {
+              return (
+                <Descriptions column={1} size={'small'}>
+                  <Descriptions.Item label={'Nome'}>{user.name}</Descriptions.Item>
+                  <Descriptions.Item label={'Email'}>{user.email}</Descriptions.Item>
+                  <Descriptions.Item label={'Criação'}>
+                    {format(new Date(user.createdAt), 'dd/MM/yyy')}
+                  </Descriptions.Item>
+                  <Descriptions.Item label={'Perfil'}>
+                    <Tag color={user.role === 'MANAGER' ? 'red' : 'blue'}>
+                      {user.role === 'EDITOR'
+                        ? 'Editor'
+                        : user.role === 'MANAGER'
+                        ? 'Gerente'
+                        : 'Assistente'}
+                    </Tag>
+                  </Descriptions.Item>
+                  <Descriptions.Item label={'Ações'}>
+                    <Button size='small' icon={<EyeOutlined />} />
+                    <Button size='small' icon={<EditOutlined />} />
+                  </Descriptions.Item>
+                </Descriptions>
+              );
+            },
+          },
+          {
             dataIndex: 'avatarUrls',
             title: '',
             width: 48,
             fixed: 'left', //14.14. Tabela responsiva com Scroll - 4', 6'27", 7'
-            responsive: ['xs'], //14.15. Propriedade responsive - 4'30"
+            responsive: ['sm'], //14.15. Propriedade responsive - 4'30"
             render(avatarUrls: User.Summary['avatarUrls']) {
               return <Avatar size={'small'} src={avatarUrls.small} />;
             },
@@ -102,6 +141,7 @@ export default function UserList() {
             ...getColumnSearchProps('name', 'Nome'),
             width: 160,
             ellipsis: true,
+            responsive: ['sm'],
           },
           {
             dataIndex: 'email',
@@ -116,6 +156,7 @@ export default function UserList() {
             title: 'Perfil',
             align: 'center',
             width: 100,
+            responsive: ['sm'],
             render(role) {
               return (
                 //14.2. Customizando renderização das colunas da tabela
@@ -140,6 +181,7 @@ export default function UserList() {
             title: 'Ativo',
             align: 'center',
             width: 100,
+            responsive: ['sm'],
             render(active: boolean, user) {
               return (
                 <Switch
@@ -156,6 +198,7 @@ export default function UserList() {
             title: 'Ações',
             align: 'center',
             width: 100,
+            responsive: ['sm'],
             render() {
               return (
                 <>
