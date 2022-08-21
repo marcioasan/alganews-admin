@@ -1,5 +1,6 @@
-//14.18. Iniciando o formulário de usuário
-import { Col, Form, Input, Row, Avatar, DatePicker, Divider, Select } from 'antd';
+//14.18. Iniciando o formulário de usuário, 14.19. Componente de abas (Tabs)
+import { Col, Form, Input, Row, Avatar, DatePicker, Divider, Select, Tabs } from 'antd';
+const { TabPane } = Tabs;
 
 export default function UserForm() {
   return (
@@ -37,6 +38,19 @@ export default function UserForm() {
           <Form.Item label={'Email'}>
             <Input type='email' placeholder={'E.g.: contato@joao.silva'} />
           </Form.Item>
+        </Col>
+        <Col lg={24}>
+          <Divider />
+        </Col>
+        <Col lg={24}>
+          <Tabs defaultActiveKey={'personal'}>
+            <TabPane key={'personal'} tab={'Dados pessoais'}>
+              dados pessoais
+            </TabPane>
+            <TabPane key={'bankAccount'} tab={'Dados bancários'}>
+              dados bancários
+            </TabPane>
+          </Tabs>
         </Col>
       </Row>
     </Form>
