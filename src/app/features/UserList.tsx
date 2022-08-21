@@ -1,16 +1,5 @@
 //14.1. Tabela de usuários
-import {
-  Avatar,
-  Button,
-  Card,
-  Descriptions,
-  Input,
-  Space,
-  Switch,
-  Table,
-  Tag,
-  Typography,
-} from 'antd';
+import { Avatar, Button, Card, Descriptions, Input, Space, Switch, Table, Tag } from 'antd';
 import { format } from 'date-fns';
 import { User } from 'marcioasan-sdk';
 import { useEffect } from 'react';
@@ -96,6 +85,7 @@ export default function UserList() {
         dataSource={users}
         //pagination={{ pageSize: 2 }} //14.13. Paginação local
         pagination={false}
+        rowKey={'id'} //14.17. Resolvendo erros no console - 1'20"
         columns={[
           {
             title: 'Usuários', //14.16. Renderizando cards na tabela (mobile)
