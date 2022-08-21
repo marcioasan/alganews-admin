@@ -1,5 +1,6 @@
 //14.18. Iniciando o formulário de usuário, 14.19. Componente de abas (Tabs)
 import { Col, Form, Input, Row, Avatar, DatePicker, Divider, Select, Tabs } from 'antd';
+import React from 'react';
 const { TabPane } = Tabs;
 
 export default function UserForm() {
@@ -77,10 +78,59 @@ export default function UserForm() {
                     <Input placeholder={'0'} />
                   </Form.Item>
                 </Col>
+
+                {/* 14.21. Substituindo diretivas ngFor e vFor com Array fill map */}
+                {/* {Array(3).fill(null).map((_, index) => { */}
+                {[1, 2, 3].map((_, index) => {
+                  return (
+                    <React.Fragment key={index}>
+                      <Col lg={6}>
+                        <Form.Item label={'Habilidade'}>
+                          <Input placeholder={'E.g.: JavaScript'} />
+                        </Form.Item>
+                      </Col>
+                      <Col lg={2}>
+                        <Form.Item label={'%'}>
+                          <Input />
+                        </Form.Item>
+                      </Col>
+                    </React.Fragment>
+                  );
+                })}
               </Row>
             </TabPane>
             <TabPane key={'bankAccount'} tab={'Dados bancários'}>
-              dados bancários
+              {/* 14.22. Desafio - Dados bancários */}
+              <Row gutter={24}>
+                <Col lg={8}>
+                  <Form.Item label={'Instituição'}>
+                    <Input placeholder={'260'} />
+                  </Form.Item>
+                </Col>
+                <Col lg={8}>
+                  <Form.Item label={'Agência'}>
+                    <Input placeholder={'0001'} />
+                  </Form.Item>
+                </Col>
+                <Col lg={8}>
+                  <Form.Item label={'Conta sem dígito'}>
+                    <Input placeholder={'12345'} />
+                  </Form.Item>
+                </Col>
+                <Col lg={8}>
+                  <Form.Item label={'Dígito'}>
+                    <Input placeholder={'1'} />
+                  </Form.Item>
+                </Col>
+                <Col lg={8}>
+                  <Form.Item label={'Tipo de conta'}>
+                    <Select placeholder={'Selecione o tipo de conta'}>
+                      <Select.Option value={'SAVING'}>Conta poupança</Select.Option>
+                      <Select.Option value={'CHECKING'}>Conta corrente</Select.Option>
+                    </Select>
+                  </Form.Item>
+                </Col>
+              </Row>
             </TabPane>
           </Tabs>
         </Col>
