@@ -22,11 +22,13 @@ export default function UserForm() {
           {/* 14.24. Recortando e redimensionando imagens no front-end */}
           <ImageCrop rotate shape={'round'} grid aspect={1}>
             <Upload
+              maxCount={1}
               onRemove={() => {
                 setAvatar('');
               }}
-              beforeUpload={async (file) => {
-                await handleAvatarUpload(file);
+              /* 14.25. Corrigindo uns bugs no upload - 1'40" */
+              beforeUpload={(file) => {
+                handleAvatarUpload(file);
                 return false;
               }}
             >
