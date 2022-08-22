@@ -148,7 +148,8 @@ export default function UserForm() {
                 })}
               </Row>
             </TabPane>
-            <TabPane key={'bankAccount'} tab={'Dados bancários'}>
+            {/* 14.27. Forçando a renderização de uma aba */}
+            <TabPane key={'bankAccount'} tab={'Dados bancários'} forceRender>
               {/* 14.22. Desafio - Dados bancários */}
               <Row gutter={24}>
                 <Col lg={8}>
