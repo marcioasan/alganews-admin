@@ -12,7 +12,7 @@ import {
   Upload,
   Button,
 } from 'antd';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { FileService, User } from 'marcioasan-sdk';
 import { UserOutlined } from '@ant-design/icons';
 import ImageCrop from 'antd-img-crop';
@@ -24,13 +24,28 @@ export default function UserForm() {
   const [avatar, setAvatar] = useState('');
   const [activeTab, setActiveTab] = useState<'personal' | 'bankAccount'>('personal');
 
+  //14.32. Controlando o estado do formulário - 3'30"
+  const [form] = Form.useForm<User.Input>();
+
   const handleAvatarUpload = useCallback(async (file: File) => {
     const avatarSource = await FileService.upload(file);
     setAvatar(avatarSource);
+    //14.32. Controlando o estado do formulário - 5'
+    form.setFieldsValue({
+      avatarUrl: avatarSource,
+    });
   }, []);
+
+  //14.32. Controlando o estado do formulário - 7'30"
+  useEffect(() => {
+    form.setFieldsValue({
+      avatarUrl: avatar || undefined,
+    });
+  }, [avatar]);
 
   return (
     <Form
+      form={form}
       layout={'vertical'}
       //14.29. Identificando erros em abas com Array reduce - 7', 14.30. Otimizando o algoritmo de busca de erros
       onFinishFailed={(fields) => {
@@ -85,6 +100,8 @@ export default function UserForm() {
               />
             </Upload>
           </ImageCrop>
+          {/* 14.32. Controlando o estado do formulário - 2'*/}
+          <Form.Item name={'avatarUrl'} hidden />
         </Col>
         <Col lg={10}>
           <Form.Item
