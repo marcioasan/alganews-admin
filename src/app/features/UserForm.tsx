@@ -30,14 +30,28 @@ export default function UserForm() {
   return (
     <Form
       layout={'vertical'}
-      //14.29. Identificando erros em abas com Array reduce - 7'
+      //14.29. Identificando erros em abas com Array reduce - 7', 14.30. Otimizando o algoritmo de busca de erros
       onFinishFailed={(fields) => {
-        const bankAccountErrors = fields.errorFields.reduce(
-          (prev, current) => (current.name.includes('bankAccount') ? prev + 1 : prev),
-          0
-        );
+        let bankAccountErrors = 0;
+        let personalDataErrors = 0;
+
+        fields.errorFields.forEach(({ name }) => {
+          if (name.includes('bankAccount')) bankAccountErrors++;
+          if (
+            name.includes('location') ||
+            name.includes('skills') ||
+            name.includes('phone') ||
+            name.includes('taxpayerId') ||
+            name.includes('pricePerWord')
+          )
+            personalDataErrors++;
+        });
         if (bankAccountErrors >= 1) {
           window.alert(`existem ${bankAccountErrors} erros na aba dados bancários`);
+        }
+
+        if (personalDataErrors >= 1) {
+          window.alert(`existem ${personalDataErrors} erros na aba dados pessoais`);
         }
       }}
       onFinish={(form: User.Input) => {
