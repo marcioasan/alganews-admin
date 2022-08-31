@@ -11,11 +11,14 @@ import {
   Tabs,
   Upload,
   Button,
+  notification,
 } from 'antd';
 import React, { useCallback, useEffect, useState } from 'react';
-import { FileService, User } from 'marcioasan-sdk';
+import { FileService, User, UserService } from 'marcioasan-sdk';
 import { UserOutlined } from '@ant-design/icons';
 import ImageCrop from 'antd-img-crop';
+
+import CustomError from 'marcioasan-sdk/dist/CustomError';
 
 const { TabPane } = Tabs;
 
@@ -73,8 +76,32 @@ export default function UserForm() {
           //window.alert(`existem ${personalDataErrors} erros na aba dados pessoais`);
         }
       }}
-      onFinish={(form: User.Input) => {
-        console.log(form);
+      //14.33. Tentando cadastrar o usuário na API - 2'
+      onFinish={async (user: User.Input) => {
+        try {
+          await UserService.insertNewUser(user);
+          notification.success({
+            message: 'Sucesso',
+            description: 'usuário criado com sucesso',
+          });
+        } catch (error) {
+          if (error instanceof CustomError) {
+            if (error.data?.objects) {
+              form.setFields(
+                error.data.objects.map((error) => {
+                  return {
+                    name: error.name?.split('.') as string[],
+                    errors: [error.userMessage],
+                  };
+                })
+              );
+            }
+          } else {
+            notification.error({
+              message: 'Houve um erro',
+            });
+          }
+        }
       }}
     >
       <Row gutter={24} align={'middle'}>
@@ -101,7 +128,10 @@ export default function UserForm() {
             </Upload>
           </ImageCrop>
           {/* 14.32. Controlando o estado do formulário - 2'*/}
-          <Form.Item name={'avatarUrl'} hidden />
+          <Form.Item name={'avatarUrl'} hidden>
+            {/* 14.33. Tentando cadastrar o usuário na API - 30" incluir essa tag para sumir com warning do console --> Warning: [antd: Form.Item] `name` is only used for validate React element. If you are using Form.Item as layout display, please remove `name` instead.*/}
+            <Input hidden />
+          </Form.Item>
         </Col>
         <Col lg={10}>
           <Form.Item
@@ -350,7 +380,7 @@ export default function UserForm() {
                 <Col lg={8}>
                   <Form.Item
                     label={'Conta sem dígito'}
-                    name={['bankAccount', 'accountNumber']}
+                    name={['bankAccount', 'number']}
                     rules={[
                       {
                         required: true,
